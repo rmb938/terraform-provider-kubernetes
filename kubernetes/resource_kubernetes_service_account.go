@@ -150,6 +150,7 @@ func resourceKubernetesServiceAccountRead(d *schema.ResourceData, meta interface
 	if err != nil {
 		return err
 	}
+	d.Set("automount_service_account_token", svcAcc.AutomountServiceAccountToken)
 	d.Set("image_pull_secret", flattenLocalObjectReferenceArray(svcAcc.ImagePullSecrets))
 
 	defaultSecretName := d.Get("default_secret_name").(string)
@@ -170,6 +171,12 @@ func resourceKubernetesServiceAccountUpdate(d *schema.ResourceData, meta interfa
 	}
 
 	ops := patchMetadata("metadata.0.", "/metadata/", d)
+	if d.HasChange("automount_service_account_token") {
+		ops = append(ops, &ReplaceOperation{
+			Path:  "/automountServiceAccountToken",
+			Value: d.Get("automount_service_account_token").(bool),
+		})
+	}
 	if d.HasChange("image_pull_secret") {
 		v := d.Get("image_pull_secret").(*schema.Set).List()
 		ops = append(ops, &ReplaceOperation{

@@ -101,7 +101,7 @@ func resourceKubernetesStorageClassUpdate(d *schema.ResourceData, meta interface
 		return fmt.Errorf("Failed to update storage class: %s", err)
 	}
 	log.Printf("[INFO] Submitted updated storage class: %#v", out)
-	d.SetId(buildId(out.ObjectMeta))
+	d.SetId(out.Name)
 
 	return resourceKubernetesStorageClassRead(d, meta)
 }
