@@ -6,6 +6,12 @@ import (
 
 func podSpecFields(isUpdatable bool) map[string]*schema.Schema {
 	s := map[string]*schema.Schema{
+		"automount_service_account_token": {
+			Type:        schema.TypeBool,
+			Description: "True to enable automatic mounting of the service account token",
+			Optional:    true,
+			Default:     false,
+		},
 		"active_deadline_seconds": {
 			Type:         schema.TypeInt,
 			Optional:     true,

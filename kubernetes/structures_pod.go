@@ -391,6 +391,10 @@ func expandPodSpec(p []interface{}) (v1.PodSpec, error) {
 		obj.ServiceAccountName = v
 	}
 
+	if v, ok := in["automount_service_account_token"].(bool); ok {
+		obj.AutomountServiceAccountToken = ptrToBool(v)
+	}
+
 	if v, ok := in["subdomain"].(string); ok {
 		obj.Subdomain = v
 	}
