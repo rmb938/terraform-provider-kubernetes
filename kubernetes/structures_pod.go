@@ -32,6 +32,7 @@ func flattenPodSpec(in v1.PodSpec) ([]interface{}, error) {
 	att["host_ipc"] = in.HostIPC
 	att["host_network"] = in.HostNetwork
 	att["host_pid"] = in.HostPID
+	att["automount_service_account_token"] = *in.AutomountServiceAccountToken
 
 	if in.Hostname != "" {
 		att["hostname"] = in.Hostname
