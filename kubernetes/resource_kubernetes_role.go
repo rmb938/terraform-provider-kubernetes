@@ -148,7 +148,7 @@ func resourceKubernetesRoleUpdate(d *schema.ResourceData, meta interface{}) erro
 	if err != nil {
 		return fmt.Errorf("Failed to marshal update operations: %s", err)
 	}
-	out, err := conn.RbacV1beta1().RoleBindings(namespace).Patch(name, pkgApi.JSONPatchType, data)
+	out, err := conn.RbacV1beta1().Roles(namespace).Patch(name, pkgApi.JSONPatchType, data)
 	if err != nil {
 		return fmt.Errorf("Failed to update role: %s", err)
 	}
